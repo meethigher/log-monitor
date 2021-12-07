@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线日志预览</title>
+</head>
+<body>
+<input type="text" id="text" placeholder="监控的文件路径"/>
+<button id="conn">进行连接</button>
+<button id="close">关闭连接</button>
+<script>
+    let webSocket;
+    document.querySelector("#conn").addEventListener("click", function () {
+        let value = document.querySelector("#text").value;
+        let target = "ws://" + location.host + "/monitor?logPath=" + value;
+        webSocket = new WebSocket(target);
+        webSocket.onopen = function () {
+            console.log("已连接");
+        };
+        webSocket.onmessage = function (event) {
+            console.log(event.data);
+        };
+        webSocket.onclose = function () {
+            console.log("连接关闭");
+        };
+    });
+    document.querySelector("#close").addEventListener("click", function () {
+        if (webSocket != null) {
+            webSocket.close();
+        }
+    });
+</script>
+</body>
+</html>

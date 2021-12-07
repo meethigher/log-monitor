@@ -1,0 +1,9 @@
+server:
+  port: 10000
+
+log:
+  # websocket监听文件变化的请求路径
+  websocket: /monitor
+  # 不传logPath时，系统默认放问的日志目录
+  monitor:
+    defaultPath: E:/logback
